@@ -1,0 +1,4 @@
+name: HotPotato
+version: '1.0-SNAPSHOT'
+main: org.ccg.hotpotato.HotPotato
+api-version: '1.20'
