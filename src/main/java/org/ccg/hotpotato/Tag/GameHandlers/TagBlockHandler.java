@@ -15,6 +15,7 @@ import org.ccg.hotpotato.HotPotato;
 import org.ccg.hotpotato.Tag.Data.TagData;
 import org.ccg.hotpotato.Tag.Events.GameStagesEvents.TagGameEnded;
 import org.ccg.hotpotato.Tag.Events.GameStagesEvents.TagGameStartedPreparing;
+import org.ccg.hotpotato.Tag.Events.GameStagesEvents.TagRoundStartedPreparing;
 import org.joml.Math;
 
 
@@ -48,6 +49,16 @@ public class TagBlockHandler implements Listener, IDisposable {
             Material block = Blocks.getBlocks().get(index);
             p.getInventory().addItem(new ItemStack(block, 32));
             playersBlocks.put(p, block);
+        }
+    }
+    
+    @EventHandler(priority = EventPriority.HIGHEST)
+    private void onRoundStartPreparing(TagRoundStartedPreparing e)
+    {
+        if (!Objects.equals(e.getTagData().getGameID(), _data.getGameID())) return;
+        int index = (int) ((Math.random() * Blocks.getBlocks().size()-1));
+        for (Player p : _data.getCurrentPlayers()) {
+            p.getInventory().addItem(new ItemStack(playersBlocks.get(p), 32));
         }
     }
 
